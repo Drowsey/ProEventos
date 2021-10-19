@@ -1,18 +1,21 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { Evento } from '../models/Evento';
+import { EventoService } from '../services/evento.service';
 
 @Component({
   selector: 'app-eventos',
   templateUrl: './eventos.component.html',
-  styleUrls: ['./eventos.component.scss']
+  styleUrls: ['./eventos.component.scss'],
 })
 export class EventosComponent implements OnInit {
 
-  public eventos : any = [];
-  public eventosFiltrados : any = [];
+  public eventos : Evento[] = [];
+  public eventosFiltrados : Evento[] = [];
   public isImgCollapsed = false;
-  widthImg = 110;
-  marginImg = 2;
+  public widthImg: number = 110;
+  public marginImg = 2;
   private _listFilter : string = '';
 
   public get listFilter() : string{
@@ -24,7 +27,7 @@ export class EventosComponent implements OnInit {
     this.eventosFiltrados = this._listFilter ? this.filtrarEventos(value) : this.eventos;
   }
 
-  filtrarEventos(filterBy:string) :any {
+  public filtrarEventos(filterBy:string): Evento[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.eventos.filter(
       (evento: any) => evento.tema.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
@@ -32,23 +35,35 @@ export class EventosComponent implements OnInit {
     )
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private eventoService:EventoService,
+              private modalService: NgbModal) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getEventos();
+
+
   }
 
   public getEventos() : void{
 
-    this.http.get('https://localhost:5001/eventos').subscribe(
-      response => {
-        this.eventos = response;
-        this.eventosFiltrados = response;
+    this.eventoService.getEventos().subscribe(
+      (eventos: Evento[]) => {
+        this.eventos = eventos;
+        this.eventosFiltrados = this.eventos;
       },
       error => console.log(error)
     );
 
   }
 
+  openSm(content: any): void{
+    this.modalService.open(content, { size: 'sm' });
+  }
+  confirm(): void {
+    this.modalService.dismissAll;
+  }
+
 
 }
+
+

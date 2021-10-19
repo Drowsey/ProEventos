@@ -1,3 +1,4 @@
+
 <h2>Eventos</h2>
 <hr />
 <div class="form-inline">
@@ -10,7 +11,11 @@
   <thead class="thead-dark">
     <tr>
       <th [width]="150" class="text-center">
-        <button class="btn btn-outline-light btn-sm" (click)="isImgCollapsed = !isImgCollapsed">{{isImgCollapsed ? 'Mostrar':'Ocultar'}}</button>
+        <button class="btn btn-outline-light btn-sm"
+        (click)="isImgCollapsed = !isImgCollapsed">
+          <i class="{{isImgCollapsed ? 'fa fa-eye':'fa fa-eye-slash'}}"></i>
+          {{isImgCollapsed ? 'Mostrar':'Ocultar'}}
+      </button>
       </th>
       <th>#</th>
       <th>Tema</th>
@@ -31,15 +36,19 @@
           [style.margin.px]="marginImg"
         />
       </td>
-      <td>{{ evento.eventoId }}</td>
+      <td>{{ evento.id }}</td>
       <td>{{ evento.tema }}</td>
       <td>{{ evento.local }}</td>
-      <td>{{ evento.dataEvento }}</td>
+      <td>{{ evento.dataEvento | DateFormatPipe}}</td>
       <td>{{ evento.qtdPessoas }}</td>
-      <td>{{ evento.lote }}</td>
+      <td>{{ evento.lotes[0].nome }}</td>
       <td>
-        <button type="button" class="btn btn-success btn-sm">Editar</button>
-        <button type="button" class="btn btn-danger btn-sm ml-2">Excluir</button>
+        <button type="button" class="btn btn-primary btn-sm" ngbTooltip="Edit">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button type="button" class="btn btn-danger btn-sm ml-2" ngbTooltip="Delete" (click)="openSm(content)">
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
       </td>
     </tr>
   </tbody>
@@ -51,3 +60,14 @@
     </tr>
   </tfoot>
 </table>
+
+<ng-template #content let-modal>
+  <div class="modal-body text-center">
+    <p>Deseja mesmo deletar esse evento?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Não</button>
+    <button type="button" class="btn btn-Danger" (click)="modal.dismiss()">Sim</button>
+  </div>
+</ng-template>
+
