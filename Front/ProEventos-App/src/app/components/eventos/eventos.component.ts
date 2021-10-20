@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
-import { Evento } from '../models/Evento';
-import { EventoService } from '../services/evento.service';
-
+import { Evento } from '../../models/Evento';
+import { EventoService } from '../../services/evento.service';
 @Component({
   selector: 'app-eventos',
   templateUrl: './eventos.component.html',
   styleUrls: ['./eventos.component.scss'],
 })
+
+
 export class EventosComponent implements OnInit {
 
   public eventos : Evento[] = [];
@@ -36,32 +39,40 @@ export class EventosComponent implements OnInit {
   }
 
   constructor(private eventoService:EventoService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private spinner: NgxSpinnerService,
+              private toastr: ToastrService) { }
 
   public ngOnInit(): void {
     this.getEventos();
-
-
+    this.spinner.show();
   }
 
   public getEventos() : void{
-
-    this.eventoService.getEventos().subscribe(
-      (eventos: Evento[]) => {
+    this.eventoService.getEventos().subscribe({
+      next: (eventos: Evento[]) => {
         this.eventos = eventos;
         this.eventosFiltrados = this.eventos;
       },
-      error => console.log(error)
-    );
+      error: (error: any) => {
+        this.spinner.hide();
+        this.toastr.warning('Erro ao carregar eventos.');
+      },
+      complete: () => this.spinner.hide()
+    });
 
   }
 
   openSm(content: any): void{
     this.modalService.open(content, { size: 'sm' });
   }
+
   confirm(): void {
-    this.modalService.dismissAll;
+    this.modalService.dismissAll();
+    this.toastr.success('Evento deletado.');
+
   }
+
 
 
 }

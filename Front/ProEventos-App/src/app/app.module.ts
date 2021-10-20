@@ -1,19 +1,27 @@
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EventosComponent } from './eventos/eventos.component';
-import { NavComponent } from './nav/nav.component';
-import { PalestrantesComponent } from './palestrantes/palestrantes.component';
+import { ContatosComponent } from './components/contatos/contatos.component';
+import { EventosComponent } from './components/eventos/eventos.component';
+import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
+import { NavComponent } from './shared/nav/nav.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProfileComponent } from './components/profile/profile.component';
+
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ToastrModule } from 'ngx-toastr';
 
 import { EventoService } from './services/evento.service';
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
+import { TitleComponent } from './shared/title/title.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +29,11 @@ import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
     EventosComponent,
     PalestrantesComponent,
     NavComponent,
-    DateTimeFormatPipe
+    DateTimeFormatPipe,
+    ContatosComponent,
+    DashboardComponent,
+    ProfileComponent,
+    TitleComponent
   ],
   imports: [
     AppRoutingModule,
@@ -29,7 +41,15 @@ import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
     NgbModule,
     FormsModule,
     BrowserModule,
-    NgxSpinnerModule
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
+    CommonModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: false,
+      progressBar: true
+    })
   ],
   providers: [EventoService],
   bootstrap: [AppComponent],
