@@ -1,0 +1,117 @@
+
+
+<div class="card shadow-sm p-3">
+  <div class="d-flex">
+    <div class="flex-fill pr-3">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Filtro:</div>
+        </div>
+
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar"
+          [(ngModel)]="listFilter"
+        />
+      </div>
+    </div>
+
+    <div>
+      <a class="d-flex btn btn-outline-primary" routerLink="/eventos/detalhe" >
+        <i class="fa fa-plus-circle my-1"></i>
+        <b class="ml-2 d-none d-sm-block">Novo</b>
+      </a>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th [width]="150" class="text-center  d-none d-md-table-cell">
+          <button
+            class="btn btn-outline-light btn-sm"
+            (click)="isImgCollapsed = !isImgCollapsed"
+          >
+            <i
+              class="{{ isImgCollapsed ? 'fa fa-eye' : 'fa fa-eye-slash' }}"
+            ></i>
+            {{ isImgCollapsed ? "Mostrar" : "Ocultar" }}
+          </button>
+        </th>
+        <th>#</th>
+        <th>Tema</th>
+        <th class="d-none d-md-table-cell">Local</th>
+        <th>Data</th>
+        <th class="d-none d-md-table-cell">Qtd Pessoas</th>
+        <th class="d-none d-md-table-cell">Lote</th>
+        <th>Opções</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="eventos && eventos.length">
+      <tr *ngFor="let evento of eventosFiltrados">
+        <td  class="d-none d-md-table-cell">
+          <img
+            [ngbCollapse]="isImgCollapsed"
+            class="collapse navbar-collapse"
+            src="/assets/{{ evento.imagemURL }}"
+            alt=""
+            [style.width.px]="widthImg"
+            [style.margin.px]="marginImg"
+          />
+        </td>
+        <td>{{ evento.id }}</td>
+        <td>{{ evento.tema }}</td>
+        <td class="d-none d-md-table-cell">{{ evento.local }}</td>
+        <td>{{ evento.dataEvento | DateFormatPipe }}</td>
+        <td class="d-none d-md-table-cell">{{ evento.qtdPessoas }}</td>
+        <td class="d-none d-md-table-cell">{{ evento.lotes[0].nome | uppercase }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-primary btn-sm mr-1"
+            ngbTooltip="Edit"
+          >
+            <i class="fas fa-edit"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm mr-1"
+            ngbTooltip="Delete"
+            (click)="openSm(content)"
+          >
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot *ngIf="!eventos.length">
+      <tr>
+        <td class="text-center" colspan="8">
+          <h4>Nenhum evento encontrado!</h4>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-body text-center">
+    <p>Deseja mesmo deletar esse evento?</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.close('Close click')"
+    >
+      Não
+    </button>
+    <button type="button" class="btn btn-Danger" (click)="confirm()">
+      Sim
+    </button>
+  </div>
+</ng-template>
+
+<ngx-spinner></ngx-spinner>
+

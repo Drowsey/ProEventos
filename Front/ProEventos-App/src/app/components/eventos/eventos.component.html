@@ -1,75 +1,9 @@
-<app-title [titulo]="'Eventos'"></app-title>
+<app-title
+  [titulo]="'Eventos'"
+  [iconClass]="'fa fa-calendar-alt'"
+  [botaoListar]="true"
+>
+</app-title>
 
-<div class="form-inline">
-  <div class="form-goup mb-2 ml-1 row">
-    <label class="mr-2">Filtro:</label>
-    <input type="text" class="form-control mr-2" placeholder="Buscar" [(ngModel)]="listFilter"/>
-  </div>
-</div>
-<table class="table table-striped">
-  <thead class="thead-dark">
-    <tr>
-      <th [width]="150" class="text-center">
-        <button class="btn btn-outline-light btn-sm"
-        (click)="isImgCollapsed = !isImgCollapsed">
-          <i class="{{isImgCollapsed ? 'fa fa-eye':'fa fa-eye-slash'}}"></i>
-          {{isImgCollapsed ? 'Mostrar':'Ocultar'}}
-      </button>
-      </th>
-      <th>#</th>
-      <th>Tema</th>
-      <th>Local</th>
-      <th>Data</th>
-      <th>Qtd Pessoas</th>
-      <th>Lote</th>
-      <th>Opções</th>
-    </tr>
-  </thead>
-  <tbody *ngIf="eventos && eventos.length">
-    <tr *ngFor="let evento of eventosFiltrados">
-      <td>
-        <img [ngbCollapse]="isImgCollapsed" class="collapse navbar-collapse"
-          src="/assets/{{ evento.imagemURL }}"
-          alt=""
-          [style.width.px]="widthImg"
-          [style.margin.px]="marginImg"
-        >
-      </td>
-      <td>{{ evento.id }}</td>
-      <td>{{ evento.tema }}</td>
-      <td>{{ evento.local }}</td>
-      <td>{{ evento.dataEvento | DateFormatPipe}}</td>
-      <td>{{ evento.qtdPessoas }}</td>
-      <td>{{ evento.lotes[0].nome | uppercase}}</td>
-      <td>
-        <button type="button" class="btn btn-primary btn-sm" ngbTooltip="Edit">
-          <i class="fas fa-edit"></i>
-        </button>
-        <button type="button" class="btn btn-danger btn-sm ml-2" ngbTooltip="Delete" (click)="openSm(content)">
-          <i class="fa fa-trash" aria-hidden="true"></i>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-  <tfoot *ngIf="!eventos.length">
-    <tr>
-      <td class="text-center" colspan="8">
-        <h4>Nenhum evento encontrado!</h4>
-      </td>
-    </tr>
-  </tfoot>
-</table>
-
-<ng-template #content let-modal>
-  <div class="modal-body text-center">
-    <p>Deseja mesmo deletar esse evento?</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Não</button>
-    <button type="button" class="btn btn-Danger" (click)="confirm()">Sim</button>
-  </div>
-</ng-template>
-
-<ngx-spinner></ngx-spinner>
-
+<router-outlet></router-outlet>
 

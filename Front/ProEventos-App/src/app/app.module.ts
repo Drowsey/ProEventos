@@ -22,6 +22,8 @@ import { EventoService } from './services/evento.service';
 
 import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { TitleComponent } from './shared/title/title.component';
+import { EventosDetalheComponent } from './components/eventos/eventos-detalhe/eventos-detalhe.component';
+import { EventosListaComponent } from './components/eventos/eventos-lista/eventos-lista.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { TitleComponent } from './shared/title/title.component';
     ContatosComponent,
     DashboardComponent,
     ProfileComponent,
-    TitleComponent
+    TitleComponent,
+    EventosDetalheComponent,
+    EventosListaComponent
   ],
   imports: [
     AppRoutingModule,
