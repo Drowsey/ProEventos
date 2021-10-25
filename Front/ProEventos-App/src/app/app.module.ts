@@ -13,7 +13,7 @@ import { EventosComponent } from './components/eventos/eventos.component';
 import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
@@ -24,6 +24,9 @@ import { DateTimeFormatPipe } from './helpers/DateTimeFormat.pipe';
 import { TitleComponent } from './shared/title/title.component';
 import { EventosDetalheComponent } from './components/eventos/eventos-detalhe/eventos-detalhe.component';
 import { EventosListaComponent } from './components/eventos/eventos-lista/eventos-lista.component';
+import { UserComponent } from './components/user/user.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegistrationComponent } from './components/user/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { EventosListaComponent } from './components/eventos/eventos-lista/evento
     ProfileComponent,
     TitleComponent,
     EventosDetalheComponent,
-    EventosListaComponent
+    EventosListaComponent,
+    UserComponent,
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     AppRoutingModule,

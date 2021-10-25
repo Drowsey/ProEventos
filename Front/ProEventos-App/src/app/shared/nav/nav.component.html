@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" *ngIf="showMenu()">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">ProEventos</a>
 
@@ -23,8 +23,8 @@
             <div ngbDropdown class="d-inline-block">
               <button class="btn btn-light bg-light"  id="dropdownBasic1" ngbDropdownToggle>Allen</button>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button ngbDropdownItem routerLink='profile'>Profile</button>
-                <button ngbDropdownItem routerLink=''>Sign out</button>
+                <button ngbDropdownItem routerLink='user/profile'>Profile</button>
+                <button ngbDropdownItem routerLink='user/login'>Sign out</button>
               </div>
             </div>
           </li>

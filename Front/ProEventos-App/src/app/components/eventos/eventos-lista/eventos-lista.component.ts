@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -38,7 +39,8 @@ export class EventosListaComponent implements OnInit {
   constructor(private eventoService:EventoService,
               private modalService: NgbModal,
               private spinner: NgxSpinnerService,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService,
+              private router: Router) { }
 
   public ngOnInit(): void {
     this.getEventos();
@@ -60,13 +62,18 @@ export class EventosListaComponent implements OnInit {
 
   }
 
-  openSm(content: any): void{
+  public openSm(content: any): void{
     this.modalService.open(content, { size: 'sm' });
   }
 
-  confirm(): void {
+  public confirm(): void {
     this.modalService.dismissAll();
     this.toastr.success('Evento deletado.');
+
+  }
+
+  public detalheEvento(id: number): void {
+    this.router.navigate([`eventos/detalhe/${id}`]);
 
   }
 

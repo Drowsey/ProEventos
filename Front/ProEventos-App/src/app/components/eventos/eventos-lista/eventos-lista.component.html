@@ -1,5 +1,3 @@
-
-
 <div class="card shadow-sm p-3">
   <div class="d-flex">
     <div class="flex-fill pr-3">
@@ -18,7 +16,7 @@
     </div>
 
     <div>
-      <a class="d-flex btn btn-outline-primary" routerLink="/eventos/detalhe" >
+      <a class="d-flex btn btn-outline-primary" routerLink="/eventos/detalhe">
         <i class="fa fa-plus-circle my-1"></i>
         <b class="ml-2 d-none d-sm-block">Novo</b>
       </a>
@@ -28,7 +26,7 @@
   <table class="table table-striped">
     <thead class="thead-dark">
       <tr>
-        <th [width]="150" class="text-center  d-none d-md-table-cell">
+        <th [width]="150" class="text-center d-none d-md-table-cell">
           <button
             class="btn btn-outline-light btn-sm"
             (click)="isImgCollapsed = !isImgCollapsed"
@@ -50,7 +48,7 @@
     </thead>
     <tbody *ngIf="eventos && eventos.length">
       <tr *ngFor="let evento of eventosFiltrados">
-        <td  class="d-none d-md-table-cell">
+        <td class="d-none d-md-table-cell">
           <img
             [ngbCollapse]="isImgCollapsed"
             class="collapse navbar-collapse"
@@ -65,15 +63,20 @@
         <td class="d-none d-md-table-cell">{{ evento.local }}</td>
         <td>{{ evento.dataEvento | DateFormatPipe }}</td>
         <td class="d-none d-md-table-cell">{{ evento.qtdPessoas }}</td>
-        <td class="d-none d-md-table-cell">{{ evento.lotes[0].nome | uppercase }}</td>
+        <td class="d-none d-md-table-cell">
+          {{ evento.lotes[0].nome | uppercase }}
+        </td>
         <td>
+          <!-- Editar-->
           <button
             type="button"
             class="btn btn-primary btn-sm mr-1"
             ngbTooltip="Edit"
+            (click)="detalheEvento(evento.id)"
           >
             <i class="fas fa-edit"></i>
           </button>
+          <!-- deletar-->
           <button
             type="button"
             class="btn btn-danger btn-sm mr-1"
@@ -114,4 +117,3 @@
 </ng-template>
 
 <ngx-spinner></ngx-spinner>
-
